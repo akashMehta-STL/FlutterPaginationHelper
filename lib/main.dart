@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_pagination_helper/bloc_provider.dart';
 import 'package:flutter_pagination_helper/list_item.dart';
-import 'package:flutter_pagination_helper/progressbar.dart';
-import 'package:flutter_pagination_helper/widget_list.dart';
+import 'package:flutter_pagination_helper/pagination_helper/progressbar.dart';
+import 'package:flutter_pagination_helper/pagination_helper/widget_list.dart';
 import 'pagination_bloc.dart';
 
 void main() => runApp(MyApp());
@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
 }
 
 class ListWidget extends StatelessWidget {
-  var itemList = List<ItemModel>();
+  var itemList = List<ListItemWidget>();
 
   @override
   Widget build(BuildContext context) {
@@ -34,16 +34,13 @@ class ListWidget extends StatelessWidget {
     PaginationBloc bloc = BlocProvider.of<PaginationBloc>(context);
     bloc.setDelay();
 
-    ScrollController _scrollController = ScrollController();
-    _scrollController.addListener(() {
-      if (_scrollController.position.maxScrollExtent ==
-          _scrollController.position.pixels) {
-        if (!isLoading) {
-          isLoading = !isLoading;
-          bloc.setDelay();
-        }
+    Function _onScrollListener = () {
+      if (!isLoading) {
+        isLoading = !isLoading;
+        bloc.setDelay();
       }
-    });
+    };
+
     return StreamBuilder(
       initialData: EventModel(true, itemList),
       stream: bloc.eventStream,
@@ -54,7 +51,7 @@ class ListWidget extends StatelessWidget {
           if (model.itemList.isEmpty) {
             return ProgressWidget();
           } else {
-            return WidgetList(model.itemList, _scrollController);
+            return WidgetList(model.itemList, _onScrollListener);
           }
         } else {
           if (itemList.contains(null)) {
@@ -62,7 +59,7 @@ class ListWidget extends StatelessWidget {
           }
           itemList.addAll(model.itemList);
           itemList.add(null);
-          return WidgetList(itemList, _scrollController);
+          return WidgetList(itemList, _onScrollListener);
         }
       },
     );

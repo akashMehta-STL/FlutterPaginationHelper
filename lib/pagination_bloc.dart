@@ -13,9 +13,9 @@ class PaginationBloc extends BaseBloc {
 
   void setDelay() {
     Future.delayed(Duration(seconds: 3), () {
-      List<ItemModel> itemList = List();
+      List<ListItemWidget> itemList = List();
       for (int i = index; i < index + 10; i++) {
-        itemList.add(ItemModel("Title $i", "Subtitle $i"));
+        itemList.add(ListItemWidget(ItemModel("Title $i", "Subtitle $i")));
       }
       index += 10;
       eventSink.add(EventModel(false, itemList));
@@ -30,7 +30,7 @@ class PaginationBloc extends BaseBloc {
 
 class EventModel {
   final bool progress;
-  final List<ItemModel> itemList;
+  final List<ListItemWidget> itemList;
 
   EventModel(this.progress, this.itemList);
 }
