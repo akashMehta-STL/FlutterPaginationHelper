@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_pagination_helper/bloc_provider.dart';
 import 'package:flutter_pagination_helper/list_item.dart';
-import 'package:flutter_pagination_helper/pagination_helper/progressbar.dart';
-import 'package:flutter_pagination_helper/pagination_helper/widget_list.dart';
-import 'pagination_bloc.dart';
+import 'package:flutter_pagination_helper/pagination_helper/item_list_callback.dart';
+import 'package:flutter_pagination_helper/pagination_helper/list_helper.dart';
 
 void main() => runApp(MyApp());
+const int threshold = 13;
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -19,49 +18,19 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(
           title: Text("Pagination Helper"),
         ),
-        body: BlocProvider(bloc: PaginationBloc(), child: ListWidget()),
+        body: ListHelper(threshold: threshold, itemListCallback: Callback()),
       ),
     );
   }
 }
 
-class ListWidget extends StatelessWidget {
-  var itemList = List<ListItemWidget>();
-
+class Callback extends ItemListCallback {
   @override
-  Widget build(BuildContext context) {
-    bool isLoading = false;
-    PaginationBloc bloc = BlocProvider.of<PaginationBloc>(context);
-    bloc.setDelay();
-
-    Function _onScrollListener = () {
-      if (!isLoading) {
-        isLoading = !isLoading;
-        bloc.setDelay();
-      }
-    };
-
-    return StreamBuilder(
-      initialData: EventModel(true, itemList),
-      stream: bloc.eventStream,
-      builder: (BuildContext context, AsyncSnapshot snapshot) {
-        EventModel model = snapshot.data;
-        isLoading = false;
-        if (model.progress) {
-          if (model.itemList.isEmpty) {
-            return ProgressWidget();
-          } else {
-            return WidgetList(model.itemList, _onScrollListener);
-          }
-        } else {
-          if (itemList.contains(null)) {
-            itemList.remove(null);
-          }
-          itemList.addAll(model.itemList);
-          itemList.add(null);
-          return WidgetList(itemList, _onScrollListener);
-        }
-      },
-    );
+  List<ListItemWidget> getItemList(int availableItems) {
+    List<ListItemWidget> itemList = List();
+    for (int i = availableItems; i < availableItems + threshold; i++) {
+      itemList.add(ListItemWidget(ItemModel("Title $i", "Subtitle $i")));
+    }
+    return itemList;
   }
 }
