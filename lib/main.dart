@@ -18,19 +18,45 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(
           title: Text("Pagination Helper"),
         ),
-        body: ListHelper(threshold: threshold, itemListCallback: Callback()),
+        body: ListHelper(itemListCallback: Callback()),
       ),
     );
   }
 }
 
-class Callback extends ItemListCallback {
+class Callback<T extends Widget> extends ItemListCallback {
+  int availableItems = 0;
+
   @override
-  List<ListItemWidget> getItemList(int availableItems) {
-    List<ListItemWidget> itemList = List();
-    for (int i = availableItems; i < availableItems + threshold; i++) {
-      itemList.add(ListItemWidget(ItemModel("Title $i", "Subtitle $i")));
-    }
-    return itemList;
+  Future<List<T>> getItemList() {
+    return Future.delayed(Duration(seconds: 3), () {
+      List<T> itemList = List();
+      for (int i = availableItems; i < availableItems + threshold; i++) {
+        Widget widget;
+        if (i % 5 == 0) {
+          widget = Container(
+            decoration: BoxDecoration(
+                color: Colors.grey[50],
+                boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 10)],
+                border: Border.all(color: Colors.grey[400], width: 1.0),
+                borderRadius: BorderRadius.circular(5)),
+            child: Padding(
+              padding: EdgeInsets.all(10),
+              child: Center(
+                child: Text(
+                  "This is different item no $i",
+                  style: TextStyle(fontSize: 18),
+                ),
+              ),
+            ),
+          );
+        } else {
+          widget = ListItemWidget(ItemModel("Title $i", "Subtitle $i"));
+        }
+        itemList.add(widget);
+      }
+      availableItems += threshold;
+      return itemList;
+    });
   }
 }

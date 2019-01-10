@@ -10,19 +10,11 @@ class PaginationBloc<T extends Widget> extends BaseBloc {
 
   Sink<EventModel> get eventSink => eventController.sink;
 
-  int _index = 0;
-
-  final int threshold;
   final ItemListCallback<T> itemListCallback;
-
-  PaginationBloc({this.threshold, this.itemListCallback});
+  PaginationBloc({this.itemListCallback});
 
   void setDelay() async {
-    List<T> itemList =
-        await Future.delayed(Duration(seconds: 3), () {
-          return itemListCallback.getItemList(_index);
-        });
-    _index += threshold;
+    List<T> itemList = await itemListCallback.getItemList();
     eventSink.add(EventModel(false, itemList));
   }
 
