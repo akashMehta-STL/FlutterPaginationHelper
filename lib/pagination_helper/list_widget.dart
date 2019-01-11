@@ -11,12 +11,12 @@ class ListWidget<T extends Widget> extends StatelessWidget {
   Widget build(BuildContext context) {
     bool isLoading = false;
     PaginationBloc bloc = BlocProvider.of<PaginationBloc>(context);
-    bloc.setDelay();
+    bloc.setAsyncCallback();
 
     Function _onScrollListener = () {
       if (!isLoading) {
         isLoading = !isLoading;
-        bloc.setDelay();
+        bloc.setAsyncCallback();
       }
     };
 
