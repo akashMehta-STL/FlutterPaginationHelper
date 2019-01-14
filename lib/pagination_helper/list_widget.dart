@@ -1,3 +1,4 @@
+import 'package:flutter_pagination_helper/pagination_helper/event_model.dart';
 import 'package:flutter_pagination_helper/pagination_helper/progressbar.dart';
 import 'package:flutter_pagination_helper/pagination_helper/widget_list.dart';
 import 'package:flutter/material.dart';

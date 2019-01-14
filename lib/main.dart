@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_pagination_helper/list_item.dart';
+import 'package:flutter_pagination_helper/pagination_helper/event_model.dart';
 import 'package:flutter_pagination_helper/pagination_helper/item_list_callback.dart';
 import 'package:flutter_pagination_helper/pagination_helper/list_helper.dart';
-import 'pagination_helper/pagination_bloc.dart';
+
 void main() => runApp(MyApp());
 const int threshold = 13;
 
@@ -15,7 +16,9 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(
           title: Text("Pagination Helper"),
         ),
-        body: ListHelper(progressWidget: Text("Loading..."),itemListCallback: Callback()),
+        body: ListHelper(
+            progressWidget: Text("Loading..."),
+            itemListCallback: Callback(context)),
       ),
     );
   }
@@ -23,11 +26,15 @@ class MyApp extends StatelessWidget {
 
 class Callback<T extends Widget> extends ItemListCallback {
   int availableItems = 0;
+  final BuildContext context;
+
+  Callback(this.context);
+
   @override
   Future<EventModel> getItemList() {
-    if (availableItems > 20) {
+    if (availableItems > 20) { // manage error scenario
       return Future.value(EventModel(false, null, "Error message"));
-    } else {
+    } else { // manage data scenario
       return Future.delayed(Duration(seconds: 3), () {
         List<T> itemList = List();
         for (int i = availableItems; i < availableItems + threshold; i++) {
@@ -57,7 +64,6 @@ class Callback<T extends Widget> extends ItemListCallback {
         availableItems += threshold;
         return EventModel(false, itemList, null);
       });
-
     }
   }
 }
