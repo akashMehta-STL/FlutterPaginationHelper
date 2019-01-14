@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
         ),
         body: ListHelper(
             progressWidget: Text("Loading..."),
-            itemListCallback: Callback(context)),
+            itemListCallback: Callback()),
       ),
     );
   }
@@ -26,9 +26,6 @@ class MyApp extends StatelessWidget {
 
 class Callback<T extends Widget> extends ItemListCallback {
   int availableItems = 0;
-  final BuildContext context;
-
-  Callback(this.context);
 
   @override
   Future<EventModel> getItemList() {
