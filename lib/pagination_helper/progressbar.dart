@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class ProgressWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Center(
       child: Container(
         height: 30,
         width: 30,

@@ -13,7 +13,7 @@ class PaginationBloc<T extends Widget> extends BaseBloc {
   final ItemListCallback<T> itemListCallback;
   PaginationBloc({this.itemListCallback});
 
-  void setDelay() async {
+  void setAsyncCallback() async {
     List<T> itemList = await itemListCallback.getItemList();
     eventSink.add(EventModel(false, itemList));
   }
