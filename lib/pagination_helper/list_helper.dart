@@ -6,12 +6,16 @@ import 'package:flutter_pagination_helper/pagination_helper/list_widget.dart';
 
 class ListHelper extends StatelessWidget {
   final ItemListCallback itemListCallback;
-  ListHelper({this.itemListCallback});
+  final Widget progressWidget;
+
+  ListHelper({this.progressWidget, this.itemListCallback});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
         bloc: PaginationBloc(itemListCallback: itemListCallback),
-        child: ListWidget());
+        child: ListWidget(
+          progressWidget: progressWidget,
+        ));
   }
 }

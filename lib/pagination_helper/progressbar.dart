@@ -8,7 +8,7 @@ class ProgressWidget extends StatelessWidget {
         height: 30,
         width: 30,
         child: CircularProgressIndicator(
-          backgroundColor: Colors.teal,
+          backgroundColor: Colors.primaries[0],
           strokeWidth: 3,
         ),
       ),

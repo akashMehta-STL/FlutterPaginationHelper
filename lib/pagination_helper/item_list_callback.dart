@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_pagination_helper/pagination_helper/pagination_bloc.dart';
 
-abstract class ItemListCallback<T extends Widget> {
-  Future<List<T>> getItemList();
+abstract class ItemListCallback {
+  Future<EventModel> getItemList();
 }

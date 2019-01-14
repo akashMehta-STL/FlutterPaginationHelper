@@ -5,7 +5,11 @@ import 'package:flutter_pagination_helper/pagination_helper/bloc_provider.dart';
 import 'package:flutter_pagination_helper/pagination_helper/pagination_bloc.dart';
 
 class ListWidget<T extends Widget> extends StatelessWidget {
-  var itemList = List<T>();
+  final _itemList = List<T>();
+
+  final Widget progressWidget;
+
+  ListWidget({this.progressWidget});
 
   @override
   Widget build(BuildContext context) {
@@ -21,24 +25,29 @@ class ListWidget<T extends Widget> extends StatelessWidget {
     };
 
     return StreamBuilder(
-      initialData: EventModel(true, itemList),
+      initialData: EventModel(true, _itemList, null),
       stream: bloc.eventStream,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         EventModel<T> model = snapshot.data;
         isLoading = false;
-        if (model.progress) {
+        if (model.progress) { // Handle progress state
           if (model.itemList.isEmpty) {
-            return ProgressWidget();
+            return progressWidget ?? ProgressWidget();
           } else {
-            return WidgetList(model.itemList, _onScrollListener);
+            return WidgetList(model.itemList, progressWidget, _onScrollListener);
           }
-        } else {
-          if (itemList.contains(null)) {
-            itemList.remove(null);
+        } else if(model.errorMessage != null) { // Handle error state
+          if (_itemList.contains(null)) {
+            _itemList.remove(null);
           }
-          itemList.addAll(model.itemList);
-          itemList.add(null);
-          return WidgetList(itemList, _onScrollListener);
+          return WidgetList(_itemList, progressWidget, _onScrollListener);
+        } else { // Handle data state
+          if (_itemList.contains(null)) {
+            _itemList.remove(null);
+          }
+          _itemList.addAll(model.itemList);
+          _itemList.add(null);
+          return WidgetList(_itemList, progressWidget, _onScrollListener);
         }
       },
     );
