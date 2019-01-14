@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_pagination_helper/bloc_provider.dart';
 import 'package:flutter_pagination_helper/list_item.dart';
-import 'package:flutter_pagination_helper/pagination_helper/progressbar.dart';
-import 'package:flutter_pagination_helper/pagination_helper/widget_list.dart';
-import 'pagination_bloc.dart';
+import 'package:flutter_pagination_helper/pagination_helper/item_list_callback.dart';
+import 'package:flutter_pagination_helper/pagination_helper/list_helper.dart';
 
 void main() => runApp(MyApp());
+const int threshold = 13;
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -19,49 +18,45 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(
           title: Text("Pagination Helper"),
         ),
-        body: BlocProvider(bloc: PaginationBloc(), child: ListWidget()),
+        body: ListHelper(itemListCallback: Callback()),
       ),
     );
   }
 }
 
-class ListWidget extends StatelessWidget {
-  var itemList = List<ListItemWidget>();
+class Callback<T extends Widget> extends ItemListCallback {
+  int availableItems = 0;
 
   @override
-  Widget build(BuildContext context) {
-    bool isLoading = false;
-    PaginationBloc bloc = BlocProvider.of<PaginationBloc>(context);
-    bloc.setDelay();
-
-    Function _onScrollListener = () {
-      if (!isLoading) {
-        isLoading = !isLoading;
-        bloc.setDelay();
-      }
-    };
-
-    return StreamBuilder(
-      initialData: EventModel(true, itemList),
-      stream: bloc.eventStream,
-      builder: (BuildContext context, AsyncSnapshot snapshot) {
-        EventModel model = snapshot.data;
-        isLoading = false;
-        if (model.progress) {
-          if (model.itemList.isEmpty) {
-            return ProgressWidget();
-          } else {
-            return WidgetList(model.itemList, _onScrollListener);
-          }
+  Future<List<T>> getItemList() {
+    return Future.delayed(Duration(seconds: 3), () {
+      List<T> itemList = List();
+      for (int i = availableItems; i < availableItems + threshold; i++) {
+        Widget widget;
+        if (i % 5 == 0) {
+          widget = Container(
+            decoration: BoxDecoration(
+                color: Colors.grey[50],
+                boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 10)],
+                border: Border.all(color: Colors.grey[400], width: 1.0),
+                borderRadius: BorderRadius.circular(5)),
+            child: Padding(
+              padding: EdgeInsets.all(10),
+              child: Center(
+                child: Text(
+                  "This is different item no $i",
+                  style: TextStyle(fontSize: 18),
+                ),
+              ),
+            ),
+          );
         } else {
-          if (itemList.contains(null)) {
-            itemList.remove(null);
-          }
-          itemList.addAll(model.itemList);
-          itemList.add(null);
-          return WidgetList(itemList, _onScrollListener);
+          widget = ListItemWidget(ItemModel("Title $i", "Subtitle $i"));
         }
-      },
-    );
+        itemList.add(widget);
+      }
+      availableItems += threshold;
+      return itemList;
+    });
   }
 }

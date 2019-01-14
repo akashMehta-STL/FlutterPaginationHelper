@@ -1,6 +1,14 @@
 name: flutter_pagination_helper
-description: A new Flutter project.
-
+description: >-
+  Reduce your boilerplate code to implement pagination in flutter project.
+  User ListHelper widget and pass call back method to listen scroll event
+  using your custom ItemListCallback.
+author:
+  - akashMehta-STL <akash.mehta@solutelabs.com>
+repository:
+  - https://github.com/akashMehta-STL/FlutterPaginationHelper.git
+issue_tracker:
+  - https://github.com/akashMehta-STL/FlutterPaginationHelper/issues
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
 # followed by an optional build number separated by a +.
