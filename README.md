@@ -13,7 +13,7 @@ Here we have optimised concept of Model from model-view-intent pattern as descri
 To add flutter pagination helper dependency add following dependency in pubspec.yaml
 ```
 dependencies:
-  flutter_pagination_helper: ^1.0.0+4
+  flutter_pagination_helper: ^1.0.0+5
 ```
 
 ### Common usage
