@@ -6,10 +6,13 @@ import 'package:flutter_pagination_helper/pagination_helper/bloc_provider.dart';
 class NewsHomeWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: _defaultTabController());
+    return NewsTabController();
   }
+}
 
-  Widget _defaultTabController() {
+class NewsTabController extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
     return DefaultTabController(
         length: 3,
         child: Scaffold(
@@ -20,9 +23,16 @@ class NewsHomeWidget extends StatelessWidget {
                 tabs: [Tab(text: "New"), Tab(text: "Top"), Tab(text: "Best")]),
           ),
           body: TabBarView(children: [
-            BlocProvider(bloc: NewsListBloc(), child: HackerNewsListWidget("New"),),
-            BlocProvider(bloc: NewsListBloc(), child: HackerNewsListWidget("Top"),),
-            BlocProvider(bloc: NewsListBloc(), child: HackerNewsListWidget("Best"))
+            BlocProvider(
+              bloc: NewsListBloc(),
+              child: HackerNewsListWidget("New"),
+            ),
+            BlocProvider(
+              bloc: NewsListBloc(),
+              child: HackerNewsListWidget("Top"),
+            ),
+            BlocProvider(
+                bloc: NewsListBloc(), child: HackerNewsListWidget("Best"))
           ]),
         ));
   }
