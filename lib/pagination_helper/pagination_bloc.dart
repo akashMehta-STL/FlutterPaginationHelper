@@ -11,11 +11,17 @@ class PaginationBloc extends BaseBloc {
   Sink<EventModel> get eventSink => eventController.sink;
 
   final ItemListCallback itemListCallback;
+
   PaginationBloc({this.itemListCallback});
 
   void setAsyncCallback() async {
-    EventModel model = await itemListCallback.getItemList();
-    eventSink.add(model);
+    try {
+      EventModel model = await itemListCallback.getItemList();
+      eventSink.add(model);
+    } catch (e) {
+      eventSink
+          .add(EventModel(progress: false, data: null, error: e.toString()));
+    }
   }
 
   @override
