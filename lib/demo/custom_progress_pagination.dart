@@ -72,7 +72,7 @@ class TitleWidget extends StatelessWidget {
         padding: EdgeInsets.all(10),
         child: Center(
           child: Text(
-            "This is different item no $i",
+            "Header $i",
             style: TextStyle(fontSize: 18),
           ),
         ),
