@@ -52,7 +52,7 @@ class OnScrollCallback<T extends Widget> extends ItemListCallback {
 }
 ```
 * `EventModel` is ui model to distinguish state as mentioned in code. It will be retrieved from `event_model.dart` file.
-  - Hear `progress` indicates the visibility of progress bar while loading item.
+  - Here `progress` indicates the visibility of progress bar while loading item.
   - `data` will be list of widgets which will be displayed in list view. [Note : This field will contain items which are not retrieved on previous call].
   - `error` is a error message when api fails and it will be displayed as SnackBar.
   - `stopLoading` will be true when all items are retrieved and we need to stop pagination.
