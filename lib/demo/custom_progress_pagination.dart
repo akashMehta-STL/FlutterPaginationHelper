@@ -10,17 +10,15 @@ const int totalItems = 39;
 class CustomProgressWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text("Pagination with custom progress"),
-        ),
-        body: PaginatedListWidget(
-            progressWidget: Center(
-              child: Text("Loading..."),
-            ),
-            itemListCallback: OnScrollCallback()),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Pagination with custom progress"),
       ),
+      body: PaginatedListWidget(
+          progressWidget: Center(
+            child: Text("Loading..."),
+          ),
+          itemListCallback: OnScrollCallback()),
     );
   }
 }

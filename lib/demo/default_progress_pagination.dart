@@ -10,13 +10,11 @@ const int totalItems = 39;
 class DefaultProgressWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text("Pagination with default progress"),
-        ),
-        body: PaginatedListWidget(itemListCallback: OnScrollCallback()),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Pagination with default progress"),
       ),
+      body: PaginatedListWidget(itemListCallback: OnScrollCallback()),
     );
   }
 }

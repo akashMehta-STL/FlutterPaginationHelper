@@ -1,90 +1,85 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_pagination_helper/demo/list_item.dart';
-import 'package:flutter_pagination_helper/pagination_helper/event_model.dart';
-import 'package:flutter_pagination_helper/pagination_helper/item_list_callback.dart';
-import 'package:flutter_pagination_helper/pagination_helper/list_helper.dart';
+import 'package:flutter_pagination_helper/demo/custom_progress_pagination.dart';
+import 'package:flutter_pagination_helper/demo/default_progress_pagination.dart';
+import 'package:flutter_pagination_helper/demo/pagination_error.dart';
 
 void main() => runApp(MyApp());
-const int threshold = 13;
-const int totalItems = 39;
-const int errorIndex = 20;
+
+const DEFAULT_PROGRESS_PAGINATION = 0;
+const CUSTOM_PROGRESS_PAGINATION = 1;
+const ERROR_PAGINATION = 2;
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text("Pagination Helper"),
-        ),
-        body: PaginatedListWidget(
-            progressWidget: Center(child : Text("Loading..."),),
-            itemListCallback: OnScrollCallback()),
+      home: Builder(
+        builder: (context) {
+          return Scaffold(
+            appBar: AppBar(
+              title: Text("Pagination Sample"),
+            ),
+            body: Center(
+              child: Column(
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.all(10),
+                    child: RaisedButton(
+                      onPressed: () {
+                        navigateToPagination(
+                            context, CUSTOM_PROGRESS_PAGINATION);
+                      },
+                      child: Padding(
+                        padding: EdgeInsets.all(10),
+                        child: Text("Custom progress pagination"),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(10),
+                    child: RaisedButton(
+                      onPressed: () {
+                        navigateToPagination(
+                            context, DEFAULT_PROGRESS_PAGINATION);
+                      },
+                      child: Padding(
+                        padding: EdgeInsets.all(10),
+                        child: Text("Default progress pagination"),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(10),
+                    child: RaisedButton(
+                      onPressed: () {
+                        navigateToPagination(context, ERROR_PAGINATION);
+                      },
+                      child: Padding(
+                        padding: EdgeInsets.all(10),
+                        child: Text("Error pagination"),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
       ),
     );
   }
-}
 
-class OnScrollCallback<T extends Widget> extends ItemListCallback {
-  int availableItems = 0;
-  bool isFirst = true;
-  @override
-  Future<EventModel> getItemList() {
-    if (availableItems > errorIndex && isFirst) { // manage error scenario
-      isFirst = false;
-      return Future.value(EventModel(progress: false, data: null, error: "Error message"));
-    } else { // manage data scenario
-      return Future.delayed(Duration(seconds: 3), () {
-        List<T> itemList = List();
-        if (availableItems < totalItems) {
-          for (int i = availableItems; i < availableItems + threshold; i++) {
-            Widget widget;
-            if (i % 5 == 0) {
-              widget = TitleWidget(i);
-            } else {
-              widget = ListItemWidget(ItemModel("Title $i", "Subtitle $i"));
-            }
-            itemList.add(widget);
-          }
-          availableItems += threshold;
-          return EventModel(progress : false, data : itemList, error: null);
-        } else {
-          for (int i = availableItems; i < availableItems + 3; i++) {
-            Widget widget = ListItemWidget(ItemModel("Title $i", "Subtitle $i"));
-            itemList.add(widget);
-          }
-          availableItems += 3;
-          return EventModel(progress : false, data : itemList, error: null, stopLoading: true);
-        }
-      });
-    }
+  void navigateToPagination(BuildContext context, int page) {
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (BuildContext context) {
+      if (page == DEFAULT_PROGRESS_PAGINATION) {
+        return DefaultProgressWidget();
+      } else if (page == CUSTOM_PROGRESS_PAGINATION) {
+        return CustomProgressWidget();
+      } else {
+        return PaginationErrorWidget();
+      }
+    }));
   }
 }
-
-class TitleWidget extends StatelessWidget {
-  final int i;
-
-  TitleWidget(this.i);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-          color: Colors.grey[50],
-          boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 10)],
-          border: Border.all(color: Colors.grey[400], width: 1.0),
-          borderRadius: BorderRadius.circular(5)),
-      child: Padding(
-        padding: EdgeInsets.all(10),
-        child: Center(
-          child: Text(
-            "This is different item no $i",
-            style: TextStyle(fontSize: 18),
-          ),
-        ),
-      ),
-    );
-  }
-}
-

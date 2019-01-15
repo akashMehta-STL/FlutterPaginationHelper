@@ -10,13 +10,11 @@ const int errorIndex = 20;
 class PaginationErrorWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text("Pagination with error"),
-        ),
-        body: PaginatedListWidget(itemListCallback: OnScrollCallback()),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Pagination with error"),
       ),
+      body: PaginatedListWidget(itemListCallback: OnScrollCallback()),
     );
   }
 }
@@ -27,8 +25,10 @@ class OnScrollCallback<T extends Widget> extends ItemListCallback {
   @override
   Future<EventModel> getItemList() {
     if (availableItems > errorIndex) { // manage error scenario
+      // return error message when available item exceed error index
       return Future.value(EventModel(progress: false, data: null, error: "Error message"));
     } else {
+      // return data
       return Future.delayed(Duration(seconds: 3), () {
         List<T> itemList = List();
         for (int i = availableItems; i < availableItems + threshold; i++) {
