@@ -6,14 +6,14 @@ Flutter pagination helper is used to reduce boilerplate code for pagination.
 
 Here we have optimised concept of Model from model-view-intent pattern as described by [hannes dorfmann](http://hannesdorfmann.com/android/mosby3-mvi-1). So as a short note you can use this dependency for pagination by providing the state of model retrieved from your business logic. This state could be from progress bar visibility, data, error or data loading completion. Here to show paginated list you need to pass only list of widget as a data.
 
-![custom_progress](https://im4.ezgif.com/tmp/ezgif-4-a112f47698c5.gif) ![default_progress](https://im4.ezgif.com/tmp/ezgif-4-eb932eebd330.gif)
+![custom_progress](https://cdn-images-1.medium.com/max/873/1*gd08OhXynqAR6TSeQY--2g.gif) ![default_progress](https://cdn-images-1.medium.com/max/873/1*2yJapvIy7fs7mJPpBv6zIw.gif)
 
 ## Implementation
 
 To add flutter pagination helper dependency add following dependency in pubspec.yaml
 ```
 dependencies:
-  flutter_pagination_helper: ^1.0.0+5
+  flutter_pagination_helper: ^1.0.0+6
 ```
 
 ### Common usage
