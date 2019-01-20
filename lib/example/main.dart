@@ -12,7 +12,7 @@ class CustomProgressWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home:     Scaffold(
+      home: Scaffold(
         appBar: AppBar(
           title: Text("Pagination with custom progress"),
         ),
@@ -23,7 +23,6 @@ class CustomProgressWidget extends StatelessWidget {
             itemListCallback: OnScrollCallback()),
       ),
     );
-
   }
 }
 
@@ -84,8 +83,8 @@ class TitleWidget extends StatelessWidget {
     );
   }
 }
-class ListItemWidget extends StatelessWidget {
 
+class ListItemWidget extends StatelessWidget {
   final ItemModel itemModel;
   ListItemWidget(this.itemModel);
 
@@ -93,26 +92,26 @@ class ListItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         child: Padding(
-          padding: EdgeInsets.all(10),
-          child: Column(
-            children: <Widget>[
-              Padding(
-                padding: EdgeInsets.all(10),
-                child: Text(
-                  itemModel.title,
-                  style: TextStyle(fontSize: 18),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.all(10),
-                child: Text(
-                  itemModel.subTitle,
-                  style: TextStyle(fontSize: 14),
-                ),
-              ),
-            ],
+      padding: EdgeInsets.all(10),
+      child: Column(
+        children: <Widget>[
+          Padding(
+            padding: EdgeInsets.all(10),
+            child: Text(
+              itemModel.title,
+              style: TextStyle(fontSize: 18),
+            ),
           ),
-        ));
+          Padding(
+            padding: EdgeInsets.all(10),
+            child: Text(
+              itemModel.subTitle,
+              style: TextStyle(fontSize: 14),
+            ),
+          ),
+        ],
+      ),
+    ));
   }
 }
 
@@ -121,5 +120,4 @@ class ItemModel {
   final String subTitle;
 
   ItemModel(this.title, this.subTitle);
-
 }

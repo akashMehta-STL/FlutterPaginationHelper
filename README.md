@@ -13,7 +13,7 @@ Here we have optimised concept of Model from model-view-intent pattern as descri
 To add flutter pagination helper dependency add following dependency in pubspec.yaml
 ```
 dependencies:
-  flutter_pagination_helper: ^1.0.0+8
+  flutter_pagination_helper: ^1.0.1+1
 ```
 
 ### Common usage
@@ -67,6 +67,7 @@ class EventModel<T extends Widget> {
 }
 
 ```
+* Get the clear understanding for flutter pagination from this [article](https://medium.com/@AakashDMehta/paginate-your-data-in-flutter-7744995febd1).
 * You can refer following demo for different perspactive.
   * [Pagination with default progress widget.](https://github.com/akashMehta-STL/FlutterPaginationHelper/blob/master/lib/demo/default_progress_pagination.dart)
   * [Pagination with custom progress widget.](https://github.com/akashMehta-STL/FlutterPaginationHelper/blob/master/lib/demo/custom_progress_pagination.dart)
