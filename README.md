@@ -2,7 +2,7 @@
 
 Flutter pagination helper is used to reduce boilerplate code for pagination.
 
-## Description 
+## Description
 
 Here we have optimised concept of Model from model-view-intent pattern as described by [hannes dorfmann](http://hannesdorfmann.com/android/mosby3-mvi-1). So as a short note you can use this dependency for pagination by providing the state of model retrieved from your business logic. This state could be from progress bar visibility, data, error or data loading completion. Here to show paginated list you need to pass only list of widget as a data.
 
@@ -13,13 +13,13 @@ Here we have optimised concept of Model from model-view-intent pattern as descri
 To add flutter pagination helper dependency add following dependency in pubspec.yaml
 ```
 dependencies:
-  flutter_pagination_helper: ^1.0.0+6
+  flutter_pagination_helper: ^1.0.1+1
 ```
 
 ### Common usage
 
-* To use this dependency you have to assign `PaginatedListWidget` to the child of parent widget. In the code the prototype is mentioned to setup a paginated list. It can be retrived from `list_helper.dart` file.  
-* In parameter you can optionally assign `progressWidget` if you need to design your custom widget as progress. You can change color for default progress by assigning `colorSwatch` parameter to your parent material app theme. 
+* To use this dependency you have to assign `PaginatedListWidget` to the child of parent widget. In the code the prototype is mentioned to setup a paginated list. It can be retrived from `list_helper.dart` file.
+* In parameter you can optionally assign `progressWidget` if you need to design your custom widget as progress. You can change color for default progress by assigning `colorSwatch` parameter to your parent material app theme.
 * As 2nd parameter you have to assign `itemListCallback` which will be called each time user reach to end of listview. It can be retrived from `item_list_callback.dart` file.
 ```
 import 'package:flutter_pagination_helper/pagination_helper/event_model.dart';
@@ -30,7 +30,7 @@ class CustomProgressWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(      
+      home: Scaffold(
         body: PaginatedListWidget(
             progressWidget: Center(
               child: Text("Loading..."),
@@ -48,7 +48,7 @@ class OnScrollCallback<T extends Widget> extends ItemListCallback {
   Future<EventModel<T>> getItemList() {
     // TODO: implement getItemList
     return null;
-  }  
+  }
 }
 ```
 * `EventModel` is ui model to distinguish state as mentioned in code. It will be retrieved from `event_model.dart` file.
@@ -67,6 +67,7 @@ class EventModel<T extends Widget> {
 }
 
 ```
+* Get the clear understanding for flutter pagination from this [article](https://medium.com/@AakashDMehta/paginate-your-data-in-flutter-7744995febd1).
 * You can refer following demo for different perspactive.
   * [Pagination with default progress widget.](https://github.com/akashMehta-STL/FlutterPaginationHelper/blob/master/lib/demo/default_progress_pagination.dart)
   * [Pagination with custom progress widget.](https://github.com/akashMehta-STL/FlutterPaginationHelper/blob/master/lib/demo/custom_progress_pagination.dart)

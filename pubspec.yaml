@@ -5,8 +5,7 @@ description: >-
   using your custom ItemListCallback.
 author: akashMehta-STL <akash.mehta@solutelabs.com>
 repository: https://github.com/akashMehta-STL/FlutterPaginationHelper.git
-issue_tracker:
-  - https://github.com/akashMehta-STL/FlutterPaginationHelper/issues
+issue_tracker: https://github.com/akashMehta-STL/FlutterPaginationHelper/issues
 homepage: https://github.com/akashMehta-STL/FlutterPaginationHelper.git
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -14,10 +13,10 @@ homepage: https://github.com/akashMehta-STL/FlutterPaginationHelper.git
 # Both the version and the builder number may be overridden in flutter
 # build by specifying --build-name and --build-number, respectively.
 # Read more about versioning at semver.org.
-version: 1.0.0+6
+version: 1.0.1+1
 
 environment:
-  sdk: ">=2.0.0-dev.68.0 <3.0.0"
+  sdk: ">=2.1.0-dev.9.4 <3.0.0"
 
 dependencies:
   flutter:
@@ -26,11 +25,8 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
-  rxdart : 0.19.0
-  http: 0.12.0
 
 dev_dependencies:
-  json_serializable: ^2.0.0
   flutter_test:
     sdk: flutter
 

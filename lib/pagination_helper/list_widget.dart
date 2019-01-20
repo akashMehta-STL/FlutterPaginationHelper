@@ -53,7 +53,8 @@ class ListWidget<T extends Widget> extends StatelessWidget {
           });
 
           return WidgetList(_itemList, progressWidget, _onScrollListener);
-        } else { // Handle data state
+        } else {
+          // Handle data state
           if (_itemList.contains(null)) {
             _itemList.remove(null);
           }
