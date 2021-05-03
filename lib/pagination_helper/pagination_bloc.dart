@@ -12,7 +12,7 @@ class PaginationBloc extends BaseBloc {
 
   final ItemListCallback itemListCallback;
 
-  PaginationBloc({this.itemListCallback});
+  PaginationBloc({required this.itemListCallback});
 
   void setAsyncCallback() async {
     try {

@@ -6,10 +6,10 @@ import 'package:flutter_pagination_helper/pagination_helper/bloc_provider.dart';
 import 'package:flutter_pagination_helper/pagination_helper/pagination_bloc.dart';
 
 class ListWidget<T extends Widget> extends StatelessWidget {
-  final _itemList = List<T>();
+  final List<T> _itemList = [];
 
-  final Widget progressWidget;
-  final GlobalKey<ScaffoldState> scaffoldKey;
+  final Widget? progressWidget;
+  final GlobalKey<ScaffoldState>? scaffoldKey;
 
   ListWidget({this.progressWidget, this.scaffoldKey});
 
@@ -33,12 +33,12 @@ class ListWidget<T extends Widget> extends StatelessWidget {
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         EventModel<T> model = snapshot.data;
         isLoading = false;
-        if (model.progress) {
+        if (model.progress == true) {
           // Handle progress state
-          if (model.data.isEmpty) {
+          if (model.data?.isEmpty == true) {
             return progressWidget ?? ProgressWidget();
           } else {
-            return WidgetList(model.data, progressWidget, _onScrollListener);
+            return WidgetList(model.data!, progressWidget!, _onScrollListener);
           }
         } else if (model.error != null) {
           // Handle error state
@@ -48,26 +48,26 @@ class ListWidget<T extends Widget> extends StatelessWidget {
 
           // Show SnackBar on error.
           Future.delayed(Duration(milliseconds: 500), () {
-            scaffoldKey.currentState
-                .showSnackBar(SnackBar(content: Text(model.error)));
+            ScaffoldMessenger.of(context)
+                .showSnackBar(SnackBar(content: Text(model.error ?? '')));
           });
 
-          return WidgetList(_itemList, progressWidget, _onScrollListener);
+          return WidgetList(_itemList, progressWidget!, _onScrollListener);
         } else {
           // Handle data state
           if (_itemList.contains(null)) {
             _itemList.remove(null);
           }
-          _itemList.addAll(model.data);
+          _itemList.addAll(model.data!);
 
           // If list reach to the bottom of the page then model.stopLoading flag will become
           // true and after displaying remaining data progress will not be shown.
-          if (model.stopLoading != null && model.stopLoading) {
+          if (model.stopLoading != null && model.stopLoading == true) {
             isLoadComplete = true;
           } else {
-            _itemList.add(null);
+            // _itemList.add();
           }
-          return WidgetList(_itemList, progressWidget, _onScrollListener);
+          return WidgetList(_itemList, progressWidget!, _onScrollListener);
         }
       },
     );

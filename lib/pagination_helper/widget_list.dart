@@ -29,9 +29,9 @@ class WidgetList<T extends Widget> extends StatelessWidget {
 }
 
 class ListItem<T extends Widget> extends StatelessWidget {
-  final T model;
-  final Widget progressWidget;
-  ListItem({Key key, this.model, this.progressWidget});
+  final T? model;
+  final Widget? progressWidget;
+  ListItem({Key? key, this.model, this.progressWidget});
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +43,7 @@ class ListItem<T extends Widget> extends StatelessWidget {
         ),
       );
     } else {
-      return model;
+      return model as Widget;
     }
   }
 }

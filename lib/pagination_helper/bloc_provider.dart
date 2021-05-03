@@ -15,11 +15,11 @@ class BlocProvider<T extends BaseBloc> extends StatelessWidget {
 
   static T of<T extends BaseBloc>(BuildContext context) {
     final type = typeOf<BlocProvider<T>>();
-    BlocProvider<T> blocProvider = context.ancestorWidgetOfExactType(type);
+    BlocProvider<T> blocProvider = context.findAncestorWidgetOfExactType<BlocProvider<T>>()!;
     return blocProvider.bloc;
   }
 
-  BlocProvider({Key key, @required this.bloc, @required this.child})
+  BlocProvider({Key? key, required this.bloc, required this.child})
       : super(key: key);
 
   static Type typeOf<T>() => T;

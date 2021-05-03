@@ -9,7 +9,7 @@ class PaginatedListWidget extends StatelessWidget {
   final Widget progressWidget;
   final GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
 
-  PaginatedListWidget({this.progressWidget, this.itemListCallback});
+  PaginatedListWidget({required this.progressWidget, required this.itemListCallback});
 
   @override
   Widget build(BuildContext context) {
