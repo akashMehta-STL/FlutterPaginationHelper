@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+part of pagination_helper;
 
 class ProgressWidget extends StatelessWidget {
   @override

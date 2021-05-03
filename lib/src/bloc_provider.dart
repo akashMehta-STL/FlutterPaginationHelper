@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+part of pagination_helper;
 
 abstract class BaseBloc {
   void dispose();
@@ -14,8 +14,8 @@ class BlocProvider<T extends BaseBloc> extends StatelessWidget {
   }
 
   static T of<T extends BaseBloc>(BuildContext context) {
-    final type = typeOf<BlocProvider<T>>();
     BlocProvider<T> blocProvider = context.findAncestorWidgetOfExactType<BlocProvider<T>>()!;
+
     return blocProvider.bloc;
   }
 
