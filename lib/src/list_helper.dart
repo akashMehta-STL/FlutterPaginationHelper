@@ -1,8 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_pagination_helper/pagination_helper/bloc_provider.dart';
-import 'package:flutter_pagination_helper/pagination_helper/pagination_bloc.dart';
-import 'package:flutter_pagination_helper/pagination_helper/item_list_callback.dart';
-import 'package:flutter_pagination_helper/pagination_helper/list_widget.dart';
+part of pagination_helper;
 
 class PaginatedListWidget extends StatelessWidget {
   final ItemListCallback itemListCallback;

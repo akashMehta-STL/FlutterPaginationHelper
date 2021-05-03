@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+part of pagination_helper;
 
 class EventModel<T extends Widget> {
   final bool progress;

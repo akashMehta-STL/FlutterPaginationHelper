@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_pagination_helper/pagination_helper/progressbar.dart';
+part of pagination_helper;
 
 class WidgetList<T extends Widget> extends StatelessWidget {
   final List<T> widgetList;
