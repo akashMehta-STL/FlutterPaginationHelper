@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_pagination_helper/pagination_helper/progressbar.dart';
+part of pagination_helper;
 
 class WidgetList<T extends Widget> extends StatelessWidget {
   final List<T> widgetList;
@@ -29,9 +28,9 @@ class WidgetList<T extends Widget> extends StatelessWidget {
 }
 
 class ListItem<T extends Widget> extends StatelessWidget {
-  final T model;
-  final Widget progressWidget;
-  ListItem({Key key, this.model, this.progressWidget});
+  final T? model;
+  final Widget? progressWidget;
+  ListItem({Key? key, this.model, this.progressWidget});
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +42,7 @@ class ListItem<T extends Widget> extends StatelessWidget {
         ),
       );
     } else {
-      return model;
+      return model as Widget;
     }
   }
 }

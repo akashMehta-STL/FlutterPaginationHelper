@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
+part of pagination_helper;
 
-class ProgressIndicatorWidget extends StatelessWidget {
+class ProgressWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -8,7 +8,7 @@ class ProgressIndicatorWidget extends StatelessWidget {
         height: 30,
         width: 30,
         child: CircularProgressIndicator(
-          backgroundColor: Colors.teal,
+          backgroundColor: Colors.primaries[0],
           strokeWidth: 3,
         ),
       ),
